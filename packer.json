@@ -14,21 +14,13 @@
   "_comment": "Install script",
   "provisioners": [
     {
-      "type": "shell-local",
-      "inline": ["rm -rf src/main/resources/application-postgresql.properties"]
-    },
-    {
-      "type": "shell-local",
-      "inline": ["ansible-playbook --connection=local --inventory 127.0.0.1, --extra-vars \"db_url={{user `db_url`}}\" --extra-vars \"db_password={{user `db_password`}}\" ansible/app.yml -vvvv"]
-    },
-    {
       "type": "shell",
       "script": "installers/install.sh"
     },
     {
       "type": "file",
-      "source": "installers/",
-      "destination": "/home/ubuntu/"
+      "source": "target/spring-petclinic-rest-2.4.2.jar",
+      "destination": "/home/ubuntu/spring-petclinic-rest.jar"
     }
   ]
 }

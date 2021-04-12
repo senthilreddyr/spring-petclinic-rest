@@ -21,8 +21,9 @@ podTemplate(label: 'mypod', containers: [
           withCredentials([usernamePassword(credentialsId: 'aws', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID'),
           usernamePassword(credentialsId: 'DB_PASSWORD_CRED_ID', usernameVariable: 'db_username', passwordVariable: 'db_password')
           ]){
-            db_url=sh(script:'aws rds --region ap-south-1 describe-db-instances --query "DBInstances[*].Endpoint.Address" --output text',returnStdout: true)
-            sh "packer build -var \"db_url=${db_url}\" -var \"db_password=${db_password}\" ./packer.json"\
+            ./mvnw clean package
+            // db_url=sh(script:'aws rds --region ap-south-1 describe-db-instances --query "DBInstances[*].Endpoint.Address" --output text',returnStdout: true)
+            sh "packer build ./packer.json"
           }
 
         }
