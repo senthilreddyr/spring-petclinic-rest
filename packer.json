@@ -1,0 +1,34 @@
+{
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "ap-south-1",
+    "source_ami": "ami-bab2c5d5",
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "petclinic_be_{{timestamp}}",
+    "ami_regions": ["ap-south-1"],
+    "force_deregister": true
+  }],
+  "_comment": "Install script",
+  "provisioners": [
+    {
+      "type": "shell-local",
+      "inline": ["rm -rf src/main/resources/application-postgresql.properties"]
+    },
+    {
+      "type": "shell-local",
+      "inline": ["ansible-playbook --connection=local --inventory 127.0.0.1, --extra-vars \"db_url={{user `db_url`}}\" --extra-vars \"db_password={{user `db_password`}}\" ansible/app.yml -vvvv"]
+    },
+    {
+      "type": "shell",
+      "script": "installers/install.sh"
+    },
+    {
+      "type": "file",
+      "source": "installers/",
+      "destination": "/home/ubuntu/"
+    }
+  ]
+}
