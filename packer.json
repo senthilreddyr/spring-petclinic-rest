@@ -22,5 +22,14 @@
       "source": "target/spring-petclinic-rest-2.4.2.jar",
       "destination": "/home/ubuntu/spring-petclinic-rest.jar"
     }
+  ],
+  "post-processors": [
+    [
+      {
+        "output": "manifest.json",
+        "strip_path": true,
+        "type": "manifest"
+      }
+    ]
   ]
 }

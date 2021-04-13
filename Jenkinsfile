@@ -23,6 +23,7 @@ podTemplate(label: 'mypod', containers: [
           ]){
             sh "mvn clean package"
             sh "packer build ./packer.json"
+            sh "cat manifest.json | jq -r .builds[0].artifact_id |  cut -d':' -f2"
           }
 
         }
