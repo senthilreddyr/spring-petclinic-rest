@@ -38,7 +38,7 @@ podTemplate(label: 'mypod', containers: [
                   ])
           if( "${USER_INPUT}" == "yes"){
               echo "${AMI_ID}"
-              build job: 'pet_be_deploy', parameters: [string(name: 'ami_id', value: "${AMI_ID}")],
+              build job: 'pet_be_deploy', parameters: [string(name: 'ami_id', value: "${AMI_ID}")]
           } else {
               echo "No user input selected"
           }
