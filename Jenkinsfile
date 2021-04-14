@@ -29,7 +29,7 @@ podTemplate(label: 'mypod', containers: [
       stage('Trigger deploy') 
           script {
             def USER_INPUT = input(
-                  message: 'User input required - Some Yes or No question?',
+                  message: 'Check if VM needs to be deployed - Yes/No',
                   parameters: [
                           [$class: 'ChoiceParameterDefinition',
                             choices: ['no','yes'].join('\n'),
